@@ -1,11 +1,13 @@
 import React from 'react'
 import logo from './ao_logo.svg'
+import axios from 'axios'
 import './App.css'
+import { CardList } from './components/card-list/card-list.component'
 
 const players = [
-  { name: 'Rafael Nadal', id: 1 },
-  { name: 'Roger Federer', id: 2 },
-  { name: 'Novak Djokovic', id: 3 },
+  { name: 'Rafael Nadal' },
+  { name: 'Roger Federer' },
+  { name: 'Novak Djokovic' },
 ]
 
 class App extends React.Component {
@@ -14,24 +16,43 @@ class App extends React.Component {
 
     this.state = {
       players,
+      originalPlayers: [],
     }
 
-    this.fixText = this.fixText.bind(this)
-    this.renderPlayers = this.renderPlayers.bind(this)
+    this.filterPlayers = this.filterPlayers.bind(this)
   }
 
-  fixText() {
-    this.setState({ text: `lololo ${Date.now()}` })
+  filterPlayers(event) {
+    const {
+      target: { value },
+    } = event
+
+    if (value.length > 1) {
+      this.setState(({ players }) => {
+        return {
+          players: players.filter(({ name }) => {
+            return name.toLowerCase().includes(value)
+          }),
+        }
+      })
+    } else {
+      this.setState(({ players, originalPlayers }) => {
+        return {
+          players: originalPlayers,
+        }
+      })
+    }
   }
 
-  renderPlayers() {
-    return (
-      <ul>
-        {this.state.players.map(({ name, id }) => (
-          <li key={id}>{name}</li>
-        ))}
-      </ul>
-    )
+  componentDidMount() {
+    const fetch = async () => {
+      const {
+        data: { results },
+      } = await axios('https://swapi.dev/api/people/')
+      this.setState(() => ({ players: results, originalPlayers: results }))
+    }
+
+    fetch()
   }
 
   render() {
@@ -39,7 +60,12 @@ class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          {this.renderPlayers()}
+          <input
+            type="search"
+            placeholder="search players"
+            onChange={this.filterPlayers}
+          />
+          <CardList cards={this.state.players} />
         </header>
       </div>
     )
