@@ -3,6 +3,7 @@ import logo from './ao_logo.svg'
 import axios from 'axios'
 import './App.css'
 import { CardList } from './components/card-list/card-list.component'
+import { SearchBox } from './components/search-box/search-box.component'
 
 const players = [
   { name: 'Rafael Nadal' },
@@ -60,10 +61,9 @@ class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <input
-            type="search"
+          <SearchBox
+            handleChange={this.filterPlayers}
             placeholder="search players"
-            onChange={this.filterPlayers}
           />
           <CardList cards={this.state.players} />
         </header>

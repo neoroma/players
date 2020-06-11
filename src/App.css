@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  font-family: 'ESP AlphaHeadline Tab', -apple-system, -system-ui, system-ui,
+    BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
 }
 
 .App-logo {

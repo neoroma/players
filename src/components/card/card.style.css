@@ -21,10 +21,11 @@
   justify-content: center;
   align-content: center;
   width: 10em;
-  height: 10em;
+  height: 8em;
 }
 
 .image img {
+  width: 10em;
   border-radius: 50%;
   border: 4px solid white;
   transition: transform 0.25s ease-out;

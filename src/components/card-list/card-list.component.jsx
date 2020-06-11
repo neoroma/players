@@ -6,7 +6,7 @@ export const CardList = ({ cards }) => {
   return (
     <section className="card-list">
       {cards.map((details) => (
-        <Card datails={details} />
+        <Card key={details.name} details={details} />
       ))}
     </section>
   )

@@ -1,10 +1,10 @@
 import React from 'react'
 import './card.style.css'
 
-export const Card = ({ datails }) => {
-  const { name, gender } = datails
+export const Card = ({ details }) => {
+  const { name, gender } = details
   return (
-    <div className="card-item" key={name}>
+    <div className="card-item">
       <div className="image">
         <img src="/fed.jpg" alt={name} />
       </div>
